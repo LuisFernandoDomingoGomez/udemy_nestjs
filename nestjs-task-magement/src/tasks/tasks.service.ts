@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TaskStatus } from './task-status.enum';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
@@ -42,12 +41,16 @@ export class TasksService {
     }
   }
 
-  // async updateTaskStatus(id: string, status: TaskStatus): Promise<Task> {
-  //   const task = await this.getTaskById(id);
+  async updateTaskStatus(
+    id: string,
+    status: TaskStatus,
+    user: User,
+  ): Promise<Task> {
+    const task = await this.getTaskById(id, user);
 
-  //   task.status = status;
-  //   await this.tasksRepository.save(task);
+    task.status = status;
+    await this.tasksRepository.save(task);
 
-  //   return task;
-  // }
+    return task;
+  }
 }
